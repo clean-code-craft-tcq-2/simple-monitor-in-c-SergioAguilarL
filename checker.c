@@ -57,7 +57,6 @@ int batteryIsOk(float temperature, float soc, float chargeRate)
     retval |= printMessage(magnitudArray[1],magnitudState);
     magnitudState = magnitudInRange(CHARGERATE_LOW_LIMIT,CHARGERATE_HIGH_LIMIT,chargeRate);
     retval |= printMessage(magnitudArray[2],magnitudState);
-
     return retval;
 }
 
@@ -84,4 +83,11 @@ int main() {
     assert(batteryIsOk(20,40,-0.1)== NOT_OK);
     //TC10 batteryIsOk all in range
     assert(batteryIsOk(20,40,0.5)== E_OK);
+
+    //TC11 printmessage low
+    assert(printMessage("temperature", 0) == NOT_OK);
+    //TC11 printmessage in range
+    assert(printMessage("temperature", 1) == E_OK);
+    //TC11 printmessage High
+    assert(printMessage("temperature",2) == NOT_OK);
 }
